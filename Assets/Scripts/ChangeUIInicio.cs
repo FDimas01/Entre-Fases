@@ -128,7 +128,7 @@ public class ChangeUIInicio : MonoBehaviour
         nomeUsuario = char.ToUpper(nomeUsuario[0]) + nomeUsuario.Substring(1).ToLower();
     }
 
-    textoCriacaoPersonagem.text = $"Que bom poder te ajudar, {nomeUsuario}!\nAgora escolha as caracteristicas do seu avatar.";
+    textoCriacaoPersonagem.text = $"It's great to be able to help you, {nomeUsuario}!\nNow, choose the characteristics of your avatar.";
     MostrarTela(telaCriacaoPersonagem);
     }
 
@@ -165,7 +165,7 @@ public class ChangeUIInicio : MonoBehaviour
 
     public void ContinuarTrofeu()
     {
-        textoTelaPrincipal.text = $"Oi, {nomeUsuario}!";
+        textoTelaPrincipal.text = $"Hello, {nomeUsuario}!";
 
         // 🔹 Salvar os dados para uso futuro
         SalvarDados();
@@ -192,6 +192,6 @@ public class ChangeUIInicio : MonoBehaviour
         nomeSuporte = PlayerPrefs.GetString("NomeSuporte");
         parentescoSuporte = PlayerPrefs.GetString("ParentescoSuporte");
 
-        textoTelaPrincipal.text = $"Oi, {nomeUsuario}!";
+        textoTelaPrincipal.text = $"Hello, {nomeUsuario}!";
     }
 }

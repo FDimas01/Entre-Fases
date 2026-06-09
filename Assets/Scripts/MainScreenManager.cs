@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Globalization;
 
 public class TelaPrincipalManager : MonoBehaviour
 {
@@ -368,7 +369,7 @@ public class TelaPrincipalManager : MonoBehaviour
     private void AtualizarTextoMes()
     {
     string nomeMes = System.Globalization.CultureInfo
-                        .GetCultureInfo("pt-BR")
+                        .GetCultureInfo("en-US")
                         .DateTimeFormat
                         .GetMonthName(mesAtual);
 
