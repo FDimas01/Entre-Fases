@@ -1,41 +1,42 @@
 using UnityEngine;
-using UnityEngine.UI; // Necessário para acessar os componentes de UI
+using UnityEngine.UI; 
 
 public class SilhouetteManager : MonoBehaviour
 {
     [Header("UI Elements")]
-    public Image silhouetteDisplay; // A imagem na UI que vai mostrar a silhueta
+    public Image silhouetteDisplay; // Imagem na UI de criação de personagem
 
     [Header("Sprites")]
-    public Sprite femaleSilhouette; // Arraste a imagem da mulher aqui no Inspector
-    public Sprite maleSilhouette;   // Arraste a imagem do homem aqui no Inspector
+    public Sprite femaleSilhouette; 
+    public Sprite maleSilhouette;   
 
-    // Variável para controlar o estado atual (começa como true para a mulher)
+    // 1 = Mulher, 0 = Homem (começa como mulher por padrão)
     private bool isFemale = true;
 
     void Start()
     {
-        // Garante que a aplicação inicie com a silhueta da mulher
-        if (silhouetteDisplay != null && femaleSilhouette != null)
-        {
-            silhouetteDisplay.sprite = femaleSilhouette;
-        }
+        // Ao abrir a tela, carrega a opção salva (se não houver, o padrão é 1)
+        isFemale = PlayerPrefs.GetInt("GeneroAvatar", 1) == 1;
+        AtualizarImagem();
     }
 
-    // Método que será chamado pelo botão
+    // Método chamado pelo botão de trocar personagem
     public void ToggleSilhouette()
     {
-        // Inverte o valor da variável (se era true vira false, e vice-versa)
         isFemale = !isFemale;
 
-        // Atualiza a imagem com base no novo estado
-        if (isFemale)
+        // Salva a escolha imediatamente
+        PlayerPrefs.SetInt("GeneroAvatar", isFemale ? 1 : 0);
+        PlayerPrefs.Save();
+
+        AtualizarImagem();
+    }
+
+    private void AtualizarImagem()
+    {
+        if (silhouetteDisplay != null)
         {
-            silhouetteDisplay.sprite = femaleSilhouette;
-        }
-        else
-        {
-            silhouetteDisplay.sprite = maleSilhouette;
+            silhouetteDisplay.sprite = isFemale ? femaleSilhouette : maleSilhouette;
         }
     }
 }
