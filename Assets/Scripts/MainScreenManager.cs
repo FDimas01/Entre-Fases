@@ -224,7 +224,7 @@ public class TelaPrincipalManager : MonoBehaviour
         // === ROTINA SEMANAL ===
         if (botoesDiasSemana != null && botoesDiasSemana.Count == 7)
         {
-            string[] dias = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado" };
+            string[] dias = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
             for (int i = 0; i < botoesDiasSemana.Count; i++)
             {
                 int index = i;
@@ -388,7 +388,7 @@ public class TelaPrincipalManager : MonoBehaviour
 
         // Atualiza o texto "Atividades do dia"
         if (textoAtividadesDoDia)
-            textoAtividadesDoDia.text = $"Atividades do dia {diaSelecionadoMensal}";
+            textoAtividadesDoDia.text = $"Activities of the day {diaSelecionadoMensal}";
 
         // Reseta o toggle do alarme
         if (toggleAlarmeMensal)
@@ -447,7 +447,7 @@ public class TelaPrincipalManager : MonoBehaviour
 
         // exibe a semana/dia selecionado no topo (mesma ideia do textoAtividadesDoDia)
         if (textoDiaSemana)
-            textoDiaSemana.text = $"Atividades de {diaSelecionadoSemanal}";
+            textoDiaSemana.text = $"Activities of {diaSelecionadoSemanal}";
 
         // reseta o toggle do alarme semanal
         if (btnAlarmeSemanal)
@@ -519,14 +519,28 @@ public class TelaPrincipalManager : MonoBehaviour
             humoresSelecionados.Add(toggle.GetComponentInChildren<TMP_Text>().text);
     }
 
+    if (humoresSelecionados.Count > 0)
+    {
+        // Salva o primeiro humor selecionado como o gancho para atualizar o algoritmo de missões
+        PlayerPrefs.SetString("UltimoHumorRegistrado", humoresSelecionados[0]);
+        PlayerPrefs.Save();
+
+        // Se o objeto de missões existir na cena, força a reconfiguração dinâmica do ecossistema de tarefas
+        MissionGenerationSystem algorithm = FindObjectOfType<MissionGenerationSystem>();
+        if (algorithm != null)
+        {
+            algorithm.ResetAndRegenerateMissions();
+        }
+    }
+
 
     // Atualiza o texto exibindo os humores selecionados (se houver)
     if (textoHumoresSelecionados)
     {
         if (humoresSelecionados.Count > 0)
-            textoHumoresSelecionados.text = "" + string.Join(", ", humoresSelecionados);
+            textoHumoresSelecionados.text = "" + string.Join("\n\n", humoresSelecionados);
         else
-            textoHumoresSelecionados.text = "Nenhum humor selecionado";
+            textoHumoresSelecionados.text = "No feeling selected";
     }
 
     // Desmarca todos os toggles após confirmar
