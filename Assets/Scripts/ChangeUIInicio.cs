@@ -128,7 +128,7 @@ public class ChangeUIInicio : MonoBehaviour
         nomeUsuario = char.ToUpper(nomeUsuario[0]) + nomeUsuario.Substring(1).ToLower();
     }
 
-    textoCriacaoPersonagem.text = $"It's great to be able to help you, {nomeUsuario}!\nNow, choose the characteristics of your avatar.";
+    textoCriacaoPersonagem.text = $"Que bom poder ajudar você, {nomeUsuario}!\nAgora, monte o seu personagem.";
     MostrarTela(telaCriacaoPersonagem);
     }
 
